@@ -1,1 +1,6 @@
 <h2>Adicione receitas à lista <%= @recipe_list.name %> </h2>
+
+<%= form_with url: recipe_list_path(@recipe_list.id), method: :patch do |f| %>
+  <%= f.collection_select :recipe_id, Recipe.all.order(:name), :id, :title %>
+  <%= f.submit 'Adicionar' %>
+<% end %>

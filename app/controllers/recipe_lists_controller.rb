@@ -19,6 +19,12 @@ class RecipeListsController < ApplicationController
     @recipe_list = RecipeList.find(params[:id])
   end
 
+  def update
+    puts params
+    @recipe_list = RecipeList.find(params[:id])
+    @recipe_list.recipes = Recipe.find(params[:recipe_id])
+  end
+
   private
 
   def recipe_list_params
