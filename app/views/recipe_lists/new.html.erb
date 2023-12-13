@@ -1,0 +1,9 @@
+<%= form_with model: @recipe_list do |f| %>
+  <div>
+    <%= f.label :list_name, 'Nome da lista' %>
+    <%= f.text_field :list_name %>
+  </div>
+  <div>
+    <%= f.submit 'Salvar' %>
+  </div>
+<% end %>

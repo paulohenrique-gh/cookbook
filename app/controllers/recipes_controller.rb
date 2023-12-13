@@ -32,10 +32,6 @@ class RecipesController < ApplicationController
     render :edit
   end
 
-  def user_recipes
-
-  end
-
   private
 
   def recipe_params
