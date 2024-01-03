@@ -3,12 +3,14 @@ Rails.application.routes.draw do
   root "home#index"
 
   resources :recipe_types, only: %i[new create index show]
-  resources :recipes, only: %i[new create edit update show]
+  resources :recipes, only: %i[new create edit update show] do
+    post :add_to_list, to: 'recipes#add_to_list', on: :member
+  end
   resources :recipe_lists, only: %i[index new create edit update]
 
   namespace :api do
     namespace :v1 do
-      get :search, to: 'recipes#search'
+      get :recipes, to: 'recipes#search'
     end
   end
 end

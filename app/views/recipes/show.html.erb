@@ -9,5 +9,9 @@
     <p class="strong"> Ingredientes: <%= @recipe.ingredients %> </p>
     <h4>Forma de preparo</h4>
     <p><%= @recipe.instructions%></p>
+    <%= form_with(model: @recipe_list, url: add_to_list_recipe_path(@recipe.id)) do |f| %>
+      <%= collection_select(:recipe_list, :id, current_user.recipe_lists, :id, :name) %>
+      <%= f.submit %>
+    <% end %>
   </div>
 </div>
