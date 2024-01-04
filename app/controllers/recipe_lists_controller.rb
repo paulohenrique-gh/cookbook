@@ -25,6 +25,10 @@ class RecipeListsController < ApplicationController
     @recipe_list.recipes = Recipe.find(params[:recipe_id])
   end
 
+  def recipes_index
+    @recipe_list = RecipeList.find(params[:id])
+  end
+
   private
 
   def recipe_list_params

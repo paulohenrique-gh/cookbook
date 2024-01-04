@@ -36,7 +36,9 @@ class RecipesController < ApplicationController
   def add_to_list
     recipe = Recipe.find(session["recipe"]["id"])
     recipe_list = current_user.recipe_lists.find(params[:recipe_list][:id])
-    ListRecipeRelation.create!(recipe: recipe, recipe_list: recipe_list)
+    relation = ListRecipeRelation.new(recipe: recipe, recipe_list: recipe_list)
+    relation.save
+    redirect_to recipe, notice: "Receita salva em #{recipe_list.name}"
   end
 
   private
