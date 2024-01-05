@@ -1,6 +1,17 @@
 <h1><%= @recipe_list.name %></h1>
-<ul>
-  <% @recipe_list.recipes.each do |recipe| %>
-    <li><%= link_to recipe.title, recipe %></li>
-  <% end %>
-</ul>
+
+<% if @recipe_list.recipes.any? %>
+  <ul>
+    <% @recipe_list.recipes.each do |recipe| %>
+      <li><%= link_to recipe.title, recipe %></li>
+      <%= button_to 'Remover',
+                    remove_recipe_recipe_list_path(@recipe_list.id),
+                    method: :delete,
+                    params: { recipe_id: recipe.id }%>
+    <% end %>
+  </ul>
+<% else %>
+  <p>
+    Nenhuma receita inclusa nessa lista
+  </p>
+<% end %>

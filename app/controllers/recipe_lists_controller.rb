@@ -1,5 +1,8 @@
 class RecipeListsController < ApplicationController
-  before_action :authenticate_user!, only: [:new, :create, :edit]
+  before_action :authenticate_user!, only: [:index, :new, :create, :edit,
+                                            :recipes_index, :remove_recipe]
+  before_action :authorize_user, only:[:new, :create, :edit,
+                                       :recipes_index, :remove_recipe]
 
   def index
     @lists = current_user.recipe_lists
@@ -29,9 +32,19 @@ class RecipeListsController < ApplicationController
     @recipe_list = RecipeList.find(params[:id])
   end
 
+  def remove_recipe
+    relation = ListRecipeRelation.find_by(recipe_list: params[:id], recipe: params[:recipe_id])
+    relation.destroy!
+    redirect_to recipes_recipe_list_path(params[:id]), notice: 'Receita removida com sucesso'
+  end
+
   private
 
   def recipe_list_params
     params.require(:recipe_list).permit(:name)
+  end
+
+  def authorize_user
+    redirect_to root_path unless current_user == RecipeList.find(params[:id]).user
   end
 end
